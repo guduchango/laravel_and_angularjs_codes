@@ -124,7 +124,7 @@ class PostController extends Controller
      * @return Collection Posts collection
     */
     public function last($n=3){
-       
+    
         return Post::select('id','title', 'text','active','user_id')
             ->with(['tags'=>function($q){
                     $q->select('id','title');

@@ -2,8 +2,8 @@
 app.config(['$routeProvider',function($routeProvider){
     $routeProvider.
     when('/',{controller:'mainController', templateUrl:'templates/main.html'}).
-    when('/usuarios',{controller:'userController',templateUrl:'templates/user.html'}).
-    when('/comentarios',{controller:'commentController', templateUrl:'templates/comment.html'}).
+    when('/users',{controller:'userController',templateUrl:'templates/user.html'}).
+    when('/comments',{controller:'commentController', templateUrl:'templates/comment.html'}).
     when('/tags',{controller:'tagController', templateUrl:'templates/tag.html'}).
     when('/login',{controller:'loginController', templateUrl:'templates/login.html'}).
     when('/logout',{controller:'logoutController', templateUrl:'templates/logout.html'}).
@@ -104,7 +104,7 @@ app.controller('newUserController',
         {
             'email' : $scope.user.email,
             'password' : $scope.user.password,
-            'name':$scope.user.password
+            'name':$scope.user.name
         }).then(function(response){
                             $rootScope.authuser = response.data;
                             $location.path('/');

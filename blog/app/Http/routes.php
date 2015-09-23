@@ -53,22 +53,3 @@ Route::get('routes', function() {
      return "<pre>".\Artisan::output();
 });
 
-//Display all SQL executed in Eloquent
-// in a storage/logs/sql.log file
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-\DB::listen(function($sql, $bindings, $time) {
-
-    if (App::environment()=="local"){
-        $xsql = explode("?", $sql);
-        $nsql = "";
-        for ($i=0; $i < count($xsql)-1; $i++) { 
-            $nsql .= $xsql[$i] . $bindings[$i];
-        }
-        $view_log = new Logger("SQL");
-        $view_log->pushHandler(
-            new StreamHandler('./../storage/logs/sql.log')
-            );
-        $view_log->addInfo($nsql?:$sql);
-    }
-});
