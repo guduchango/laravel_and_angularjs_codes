@@ -15,7 +15,7 @@ app.controller('adminController',function ($scope,$http,$rootScope,$location) {
 
     $scope.$on('$viewContentLoaded', function(){
 
-        $http.get("/login").then(function(response){
+        $http.get("/laravel_and_angularjs_codes/blog/public/login").then(function(response){
             if (response.data.id){
                 $rootScope.authuser = response.data;
             }else{
@@ -32,16 +32,16 @@ app.controller('postController',function ($scope,login,$resource) {
 
  login.check();
 
-    
+
     $scope.title = "Posts";
 
-    
+
     $scope.rows = null;
 
-    
+
     $scope.row = null;
 
-    
+
     var Post = $resource("posts/:id");
 
     $scope.$on('$viewContentLoaded', function(){
@@ -72,9 +72,9 @@ app.controller('postController',function ($scope,login,$resource) {
     }
 
     $scope.save = function(){
-        if ($scope.form.$invalid) { 
+        if ($scope.form.$invalid) {
             notifyError("Invalid Values");
-            return; 
+            return;
         }
         Post.save($scope.row,function(data){
             notifyOk(data.title + " saved");
@@ -90,17 +90,17 @@ app.controller('tagController',function ($scope,$resource,login) {
 
     login.check();
 
-    
+
     $scope.title = "Tags";
 
-   
+
     $scope.rows = null;
 
-   
+
     $scope.row = null;
 
-   
-    var Tag = $resource("tags/:id");
+
+    var Tag = $resource("/laravel_and_angularjs_codes/blog/public/tags/:id");
 
     $scope.$on('$viewContentLoaded', function(){
         $scope.loadAll();
@@ -130,9 +130,9 @@ app.controller('tagController',function ($scope,$resource,login) {
     }
 
     $scope.save = function(){
-        if ($scope.form.$invalid) { 
+        if ($scope.form.$invalid) {
             notifyError("Invalid Value");
-            return; 
+            return;
         }
         Tag.save($scope.row,function(data){
             notifyOk(data.title + " saved");
@@ -147,26 +147,26 @@ app.controller('commentController',function ($scope,$resource,login) {
 
     login.check();
 
-    
+
     $scope.posts = null;
 
-    
+
     $scope.post = null;
 
-    
+
     $scope.rows = null;
 
-    
+
     $scope.row = null;
 
-    
+
     var Comment = $resource("comments/:id",{},{
-        getByPost: {url:'/comments/post/:id',method:'GET',isArray:true}
+        getByPost: {url:'/laravel_and_angularjs_codes/blog/public/comments/post/:id',method:'GET',isArray:true}
     });
 
-    
+
     var Post = $resource("posts/:id",{},{
-        getTitles: {url:'/posts/getTitles',method:'GET',isArray:true}
+        getTitles: {url:'/laravel_and_angularjs_codes/blog/public/posts/getTitles',method:'GET',isArray:true}
     });
 
     $scope.$on('$viewContentLoaded', function(){
@@ -192,9 +192,9 @@ app.controller('commentController',function ($scope,$resource,login) {
     }
 
     $scope.save = function(){
-        if ($scope.form.$invalid) { 
+        if ($scope.form.$invalid) {
             notifyError("Invalid Values");
-            return; 
+            return;
         }
         Comment.save($scope.row,function(data){
             notifyOk("Saved.");
@@ -211,16 +211,16 @@ app.controller('userController',function ($scope,$resource,login) {
 
    login.check();
 
-    
+
     $scope.title = "Users";
 
-    
+
     $scope.rows = null;
 
-    
+
     $scope.row = null;
 
-    
+
     var User = $resource("users/:id");
 
     $scope.$on('$viewContentLoaded', function(){
@@ -251,9 +251,9 @@ app.controller('userController',function ($scope,$resource,login) {
     }
 
     $scope.save = function(){
-        if ($scope.form.$invalid) { 
+        if ($scope.form.$invalid) {
             notifyError("Invalid Values");
-            return; 
+            return;
         }
         User.save($scope.row,function(data){
             notifyOk(data.title + " saved.");
@@ -270,13 +270,13 @@ app.controller('profileController',function ($scope,login,$resource,$rootScope) 
 
    login.check();
 
-    
+
     $scope.title = "Profile";
 
-    
+
       $scope.row = null;
 
-    
+
     var User = $resource("users/:id");
 
     $scope.$on('$viewContentLoaded', function(){
@@ -292,9 +292,9 @@ app.controller('profileController',function ($scope,login,$resource,$rootScope) 
     }
 
     $scope.save = function(){
-        if ($scope.form.$invalid) { 
+        if ($scope.form.$invalid) {
             notifyError("Invalid Values");
-            return; 
+            return;
         }
         User.save($scope.row,function(data){
             notifyOk(data.name + " saved");
@@ -308,10 +308,10 @@ app.controller('profileController',function ($scope,login,$resource,$rootScope) 
 
 app.controller('logoutController',
     function ($scope,$http,$location,$rootScope) {
-        $http.get("/logout").then(function(response){
+        $http.get("/laravel_and_angularjs_codes/blog/public/logout").then(function(response){
             notifyOk("Logout done.");
             $rootScope.authuser = null;
-            window.location.assign('/index.html');
+            window.location.assign('/laravel_and_angularjs_codes/blog/public/index.html');
         },function(response){
             notifyError(response);
         });

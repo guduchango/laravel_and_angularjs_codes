@@ -14,7 +14,7 @@ app.config(['$routeProvider',function($routeProvider){
     app.controller('mainController',function ($scope,$http) {
         $scope.posts = [];
         $scope.$on('$viewContentLoaded', function(){
-            $http.get("/posts/last/3").then(function(response){
+            $http.get("/laravel_and_angularjs_codes/blog/public/posts/last/3").then(function(response){
                 $scope.posts = response.data;
             },function(response){
                 notifyError(response);
@@ -25,8 +25,7 @@ app.config(['$routeProvider',function($routeProvider){
     app.controller('menuController',function ($scope,$http,$rootScope) {
         $scope.tags = [];
         $scope.comments = [];
-        console.log('view');
-        $http.get("/menuinfo").then(function(response){
+        $http.get("menuinfo").then(function(response){
             //console.log(response);
             $scope.tags = response.data[0];
             $scope.comments = response.data[1];
@@ -39,7 +38,7 @@ app.config(['$routeProvider',function($routeProvider){
     app.controller('userController',function ($scope,$http) {
         $scope.users = [];
         $scope.$on('$viewContentLoaded', function(){
-            $http.get("/users/posts").then(function(response){
+            $http.get("/laravel_and_angularjs_codes/blog/public/users/posts").then(function(response){
                 $scope.users = response.data;
             },function(response){
                 notifyError(response);
@@ -50,7 +49,7 @@ app.config(['$routeProvider',function($routeProvider){
     app.controller('commentController',function ($scope,$http) {
         $scope.comments = [];
         $scope.$on('$viewContentLoaded', function(){
-            $http.get("/comments").then(function(response){
+            $http.get("/laravel_and_angularjs_codes/blog/public/comments").then(function(response){
                 $scope.comments = response.data;
             },function(response){
                 notifyError(response);
@@ -61,7 +60,7 @@ app.config(['$routeProvider',function($routeProvider){
     app.controller('tagController',function ($scope,$http) {
         $scope.tags = [];
         $scope.$on('$viewContentLoaded', function(){
-            $http.get("/tags/posts").then(function(response){
+            $http.get("/laravel_and_angularjs_codes/blog/public/tags/posts").then(function(response){
                 $scope.tags = response.data;
             },function(response){
                 notifyError(response);
@@ -75,11 +74,11 @@ app.controller('loginController',function ($scope,$http,$location,$rootScope) {
         $scope.user = {};
 
         $scope.doLogin = function(){
-         if ($scope.form.$invalid) { 
+         if ($scope.form.$invalid) {
             console.warn("invalid form");
-            return; 
+            return;
         }
-        $http.post("/login",
+        $http.post("/laravel_and_angularjs_codes/blog/public/login",
         {
             'email' : $scope.user.email,
             'password' : $scope.user.password
@@ -96,9 +95,9 @@ app.controller('newUserController',
     function ($scope,$http,$location,$rootScope) {
         $scope.user = {};
         $scope.createUser = function(){
-         if ($scope.form.$invalid) { 
+         if ($scope.form.$invalid) {
             console.warn("invalid form");
-            return; 
+            return;
         }
         $http.post("/user/newlogin",
         {
